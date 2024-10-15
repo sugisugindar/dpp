@@ -28,3 +28,5 @@ eg :
 
 
      Tomato-Food-Delivery-main\Tomato-Food-Delivery-main> docker-compose up --build
+
+# mongodb connection in backend env need to be added
