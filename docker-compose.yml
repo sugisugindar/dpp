@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - MONGO_URI=mongodb+srv://sugindar:j4nAKWTY98eWT1ix@cluster0.ukb6q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0  # Update with your MongoDB URI
+      - STRIPE_SECRET_KEY=pk_test_51Q7IfCLIEsrO0OnmEmxuEEQo45ybC6PdPgqeuwauuk2mxWcVHMlK3sQxlOVJmapif7hZC7zwF4n7bJd9zoAtW1Eu002mytiaDR
+  # Update with your Stripe Secret Key
+      - JWT_SECRET="random#secret" # Update with your JWT Secret Key
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongo  # Ensure MongoDB is running before starting the backend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"  # Adjust port as necessary
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
